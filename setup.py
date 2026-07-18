@@ -60,7 +60,7 @@ def get_extensions():
 
     extension = CppExtension
 
-    extra_compile_args = {"cxx": []}
+    extra_compile_args = {"cxx": ["/Zc:preprocessor"]}
     define_macros = []
 
     if (torch.cuda.is_available() and ((CUDA_HOME is not None) or is_rocm_pytorch)) or os.getenv(
@@ -78,6 +78,7 @@ def get_extensions():
                 "-D__CUDA_NO_HALF_CONVERSIONS__",
                 "-D__CUDA_NO_HALF2_OPERATORS__",
                 "-DWITH_CUDA",
+                "-Xcompiler=/Zc:preprocessor"
             ]
         else:
             define_macros += [("WITH_HIP", None)]
